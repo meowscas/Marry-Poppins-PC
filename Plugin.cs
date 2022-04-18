@@ -15,6 +15,11 @@ namespace MarryPoppins
         public static bool umbrellaOpened;
         Vector3 originalGravity;
 
+        private void resetGravity()
+        {
+            Physics.gravity = originalGravity;
+        }
+
         void OnEnable()
         {
             HarmonyPatches.ApplyHarmonyPatches();
@@ -33,6 +38,7 @@ namespace MarryPoppins
         void OnDisable()
         {
             HarmonyPatches.RemoveHarmonyPatches();
+            resetGravity();
         }
 
         void FixedUpdate()
@@ -40,7 +46,7 @@ namespace MarryPoppins
             if(inRoom)
             {
                 if (umbrellaOpened) Physics.gravity = new Vector3(0f, -3.0f, 0f);
-                else Physics.gravity =  originalGravity;
+                else resetGravity();
             }
         }
 
@@ -54,7 +60,7 @@ namespace MarryPoppins
         public void OnLeave(string gamemode)
         {
             inRoom = false;
-            Physics.gravity = originalGravity;
+            resetGravity();
         }
     }
 }
