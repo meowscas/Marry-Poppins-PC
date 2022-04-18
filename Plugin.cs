@@ -54,6 +54,7 @@ namespace MarryPoppins
         public void OnLeave(string gamemode)
         {
             inRoom = false;
+            Physics.gravity = originalGravity;
         }
     }
 }
