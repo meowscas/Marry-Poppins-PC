@@ -11,28 +11,16 @@ namespace MarryPoppins
     public class Plugin : BaseUnityPlugin
     {
         bool inRoom;
-        bool gotGravity = false;
         public static bool umbrellaOpened;
-        Vector3 originalGravity;
 
         private void resetGravity()
         {
-            Physics.gravity = originalGravity;
+            Physics.gravity = new Vector3(0f, -9.81f, 0f);
         }
 
         void OnEnable()
         {
             HarmonyPatches.ApplyHarmonyPatches();
-            Utilla.Events.GameInitialized += OnGameInitialized;
-        }
-
-        void OnGameInitialized(object sender, EventArgs e)
-        {
-            if (!gotGravity)
-            {
-                originalGravity = new Vector3(0f,-9.81f,0f);
-                gotGravity = true;
-            }
         }
 
         void OnDisable()
@@ -43,11 +31,12 @@ namespace MarryPoppins
 
         void FixedUpdate()
         {
-            if(inRoom)
+            if (inRoom)
             {
                 if (umbrellaOpened) Physics.gravity = new Vector3(0f, -3.0f, 0f);
                 else if (!umbrellaOpened) resetGravity();
             }
+            else if (!inRoom) resetGravity();
         }
 
         [ModdedGamemodeJoin]
