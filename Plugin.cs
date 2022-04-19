@@ -30,7 +30,7 @@ namespace MarryPoppins
         {
             if (!gotGravity)
             {
-                originalGravity = Physics.gravity;
+                originalGravity = new Vector3(0f,-9.81f,0f);
                 gotGravity = true;
             }
         }
@@ -46,7 +46,7 @@ namespace MarryPoppins
             if(inRoom)
             {
                 if (umbrellaOpened) Physics.gravity = new Vector3(0f, -3.0f, 0f);
-                else resetGravity();
+                else if (!umbrellaOpened) resetGravity();
             }
         }
 
@@ -54,6 +54,7 @@ namespace MarryPoppins
         public void OnJoin(string gamemode)
         {
             inRoom = true;
+            resetGravity();
         }
 
         [ModdedGamemodeLeave]
