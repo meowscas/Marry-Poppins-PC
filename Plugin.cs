@@ -1,5 +1,6 @@
 ﻿using BepInEx;
 using System;
+using System.ComponentModel;
 using UnityEngine;
 using Utilla;
 
@@ -8,6 +9,7 @@ namespace MarryPoppins
     [ModdedGamemode]
     [BepInDependency("org.legoandmars.gorillatag.utilla", "1.5.0")]
     [BepInPlugin(PluginInfo.GUID, PluginInfo.Name, PluginInfo.Version)]
+    [Description("HauntedModMenu")]
     public class Plugin : BaseUnityPlugin
     {
         bool inRoom;
