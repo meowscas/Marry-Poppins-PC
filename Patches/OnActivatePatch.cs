@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using HarmonyLib;
+using static TransferrableObject;
 
 namespace MarryPoppins.Patches
 {
@@ -11,10 +12,10 @@ namespace MarryPoppins.Patches
     {
         public static void Postfix(UmbrellaItem __instance)
         {
-            if (__instance.myOnlineRig.photonView.Owner == Photon.Pun.PhotonNetwork.LocalPlayer)
+            if (__instance.myOnlineRig.OwningNetPlayer.IsLocal)
             {
-                if (__instance.myState == 1) Plugin.umbrellaOpened = true;
-                if (__instance.myState == 0) Plugin.umbrellaOpened = false;
+                if (__instance.itemState == ItemStates.State0) Plugin.umbrellaOpened = true;
+                if (__instance.itemState == ItemStates.State1) Plugin.umbrellaOpened = false;
             }
         }
     }
